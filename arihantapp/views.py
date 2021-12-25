@@ -16,7 +16,7 @@ from arihantapp.forms import MyForm
 from .models import MyData
 
 @csrf_exempt
-def index(request):
+def uploadFile(request):
     if request.method == 'POST':
         student = MyForm(request.POST, request.FILES)
         if student.is_valid():
@@ -29,10 +29,10 @@ def index(request):
             file = open(os.path.join(settings.MEDIA_ROOT, filename))
             data = json.load(file)
             for i in data:
-                MyData.objects.get_or_create(title = i['title'], body=i['body'], userid=i['id'], user=request.user)
+                MyData.objects.get_or_create(title = i['title'], body=i['body'], userid=i['id'],user=request.user)
             queryset = MyData.objects.all().values()
-            return HttpResponse(queryset)
+            return render(request, 'jsonData.html', {'queryset': queryset})
+            #return HttpResponse(queryset)
     else:
-        print("----------------Hiii test----------------")
         student = MyForm()
         return render(request,"index.html",{'form':student})

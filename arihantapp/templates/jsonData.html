@@ -1,0 +1,22 @@
+<!-- templates/jsonData.html -->
+{% extends 'base.html' %}
+
+{% block title %}jsonData{% endblock %}
+
+{% block content %}
+<h2>Json Data</h2>
+<table>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Body</th>
+    </tr>
+    {% for q in queryset %}
+    <tr>
+      <th> {{ q.userid }}</th>
+      <th> {{ q.title }}</th>
+      <th> {{ q.body }}</th>
+    </tr> 
+    {% endfor %}
+</table>
+{% endblock %}
